@@ -1,0 +1,275 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
+  <style>
+    /* Reset margins and padding */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #715ce9;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 0 10px;
+      color: #fff;
+    }
+
+    /* Navbar Styling */
+    header {
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 8px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    header h2 {
+      color: #fff;
+      font-size: 1.2em;
+      font-weight: 700;
+    }
+
+    nav {
+      display: flex;
+      gap: 15px;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      font-size: 1em;
+      font-weight: 500;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: rgba(0, 150, 136, 0.2);
+      color: #009688;
+    }
+
+    /* Main Container and Form */
+    .container {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 700px;
+      margin-top: 100px; /* To avoid overlap with fixed navbar */
+      animation: fadeInUp 0.5s ease-in-out;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      font-size: 2em;
+      margin-bottom: 30px;
+      font-weight: 700;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .form-group label {
+      color: #333;
+      font-size: 1.1em;
+      font-weight: 600;
+    }
+
+    .IN {
+      width: 100%;
+      padding: 12px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 2px solid #009688;
+      font-size: 1em;
+      color: #333;
+      background-color: #f8f8f8;
+      transition: border-color 0.3s;
+    }
+
+    .IN:focus {
+      border-color: #009688;
+      outline: none;
+    }
+
+    /* Button Styling */
+    button {
+      width: 100%;
+      padding: 12px;
+      font-weight: bold;
+      border-radius: 25px;
+      background-color: #009688;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #00796b;
+    }
+
+    /* Hover effect for inputs */
+    .form-group input:hover {
+      background-color: #f1f1f1;
+    }
+
+    /* Keyframe Animations */
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .form-group input {
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 576px) {
+      .container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 1.8em;
+        
+      }
+    }
+    h2,h1{
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <h2>Pancreatic disease prediction</h2>
+    <nav>
+      <a href="{% url 'home' %}">Home</a>
+      <a href="{% url 'index1' %}">Image</a>
+      <a href="{% url 'index' %}">Numeric</a>
+      <a href="{% url 'index2' %}">Chatbot</a>
+      <a href="{% url 'logout' %}">Logout</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h1>Pancreatic disease prediction</h1>
+    <form action="{% url 'result' %}" method="get">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="patient_cohort">Patient Cohort</label>
+        <select class="form-control" name="patient_cohort" required>
+          <option value="1">Cohort 1</option>
+          <option value="0">Cohort 2</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="sample_origin">Sample Origin</label>
+        <select class="form-control" name="sample_origin" required>
+          <option value="0">BPTB</option>
+          <option value="1">LIV</option>
+          <option value="2">ESP</option>
+          <option value="3">UCL</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="age">Age</label>
+        <input class="form-control" placeholder="Enter age" type="number" required name="age">
+      </div>
+      
+      <div class="form-group">
+        <label for="sex">Sex</label>
+        <select class="form-control" name="sex" required>
+          <option value="1">Male</option>
+          <option value="0">Female</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="plasma_CA19_9">Plasma CA19-9</label>
+        <input class="form-control" placeholder="Enter Plasma CA19-9 level" type="number" step="any" required name="plasma_CA19_9">
+      </div>
+      
+      <div class="form-group">
+        <label for="creatinine">Creatinine</label>
+        <input class="form-control" placeholder="Enter Creatinine level" type="number" step="any" required name="creatinine">
+      </div>
+      
+      <div class="form-group">
+        <label for="LYVE1">LYVE1</label>
+        <input class="form-control" placeholder="Enter LYVE1 level" type="number" step="any" required name="LYVE1">
+      </div>
+      
+      <div class="form-group">
+        <label for="REG1B">REG1B</label>
+        <input class="form-control" placeholder="Enter REG1B level" type="number" step="any" required name="REG1B">
+      </div>
+      
+      <div class="form-group">
+        <label for="TFF1">TFF1</label>
+        <input class="form-control" placeholder="Enter TFF1 level" type="number" step="any" required name="TFF1">
+      </div>
+      
+      <div class="form-group">
+        <label for="REG1A">REG1A</label>
+        <input class="form-control" placeholder="Enter REG1A level" type="number" step="any" required name="REG1A">
+      </div>
+      
+      <button type="submit">Predict</button>
+    </form>
+  </div>
+
+</body>
+
+</html>
+{% endblock content %}

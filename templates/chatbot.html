@@ -1,0 +1,144 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url("{% static 'images/m1.jpg' %}");
+    background-size:1500px; 
+    background-repeat: no-repeat; 
+}
+
+
+/* Header Style */
+h1 {
+    text-transform: uppercase;
+    text-align: center;
+    color: #f04c4c; /* Change text color */
+    text-shadow: 2px 2px 4px #000000; /* Add text shadow */
+}
+
+/* Chatbox Style */
+.content {
+    max-width: 600px;
+    margin: 5px auto;
+    padding: 20px;
+    background-color: rgba(210, 224, 216, 0.8); /* Semi-transparent white background */
+    border-radius: 18px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    left: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* Input Field Style */
+input[type="text"] {
+    width: 70%;
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f0f0f0; /* Light gray background */
+}
+
+/* Send Button Style */
+button {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+    </style>
+    <script>
+        // Include CSRF token in AJAX requests
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+    </script>
+</head>
+<body>
+        <div class="content">
+            <div id="chatbox">
+               <h1>Pancreatic CHATBOT !!!</h1>
+            </div><br>
+            <input type="text" id="userInput" placeholder="Type here..."  onkeypress="handleKeyPress(event)"/>
+            <button onclick="sendMessage()"><span></span>Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            var userInput = document.getElementById('userInput').value;
+    
+            // Make an AJAX request to the Django view
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "{% url 'chatbot_view' %}", true);  // Specify the URL of the Django view
+            xhr.setRequestHeader("Content-Type", "application/json");
+            
+            // Include the CSRF token in the request headers
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+    
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    updateChatbox(userInput, response.response);
+                }
+            };
+    
+            var data = JSON.stringify({ 'user_input': userInput });
+            xhr.send(data);
+        }
+    
+        function updateChatbox(userInput, response) {
+            var chatbox = document.getElementById('chatbox');
+            chatbox.innerHTML += '<p><strong>User:</strong> ' + userInput + '</p>';
+            chatbox.innerHTML += '<p><strong>Bot:</strong> ' + response + '</p>';
+        
+            // Clear the input field after sending a message
+            document.getElementById('userInput').value = '';
+        }
+    
+        function handleKeyPress(event) {
+            // Check if the pressed key is Enter (key code 13)
+            if (event.keyCode === 13) {
+                // Prevent the default behavior of the Enter key (form submission)
+                event.preventDefault();
+                
+                // Call the sendMessage function
+                sendMessage();
+            }
+        }
+    </script>
+</body>
+</html>
+{% endblock content %}

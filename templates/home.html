@@ -1,0 +1,274 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Bootstrap and JavaScript CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<style>
+  /* Background animation */
+  body {
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    animation: fadeIn 2s;
+    background: url('{% static "images/4.jpg" %}') no-repeat center center fixed; /* Updated Image */
+    background-size: cover;
+}
+
+/* Updated Background Image for ::before Pseudo-Element */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('{% static "images/6.jpg" %}') no-repeat center center fixed; /* Updated Image */
+    background-size: cover;
+    z-index: -1;
+    animation: zoomIn 15s infinite alternate;
+}
+  h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      text-align: center;
+      margin-bottom: 30px;
+      animation: slideIn 1s ease-in-out;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+  }
+
+  .btn-custom {
+      background: linear-gradient(to right, rgb(221, 15, 15), rgb(150, 10, 10));
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      margin-top: 20px;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      display: inline-block;
+  }
+
+  .btn-custom:hover {
+      background: linear-gradient(to right, rgb(150, 10, 10), rgb(221, 15, 15));
+      transform: scale(1.05);
+      box-shadow: 0 4px 10px rgba(255, 0, 0, 0.4);
+  }
+
+  .info-box {
+      border-radius: 10px;
+      padding: 20px;
+      margin: 10px;
+      color: white;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s ease-in-out;
+      height: 100%;
+  }
+
+  .info-box:hover {
+      transform: translateY(-5px);
+  }
+
+  .description-box {
+      background-color: rgb(34, 193, 195); /* Light teal */
+  }
+
+  .symptoms-box {
+      background-color: rgb(253, 187, 45); /* Orange-yellow */
+  }
+
+  .disadvantages-box {
+      background-color: rgb(238, 82, 83); /* Coral red */
+  }
+
+  .advantages-box {
+      background-color: rgb(46, 204, 113); /* Light green */
+  }
+
+  .info-box h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+  }
+
+  .info-box p, .info-box ul {
+      font-size: 1.1rem;
+      line-height: 1.6;
+  }
+
+  .info-box ul {
+      list-style: none;
+      padding: 0;
+  }
+
+  .info-box ul li::before {
+      content: "• ";
+      color: white;
+      font-weight: bold;
+  }
+</style>
+<style>
+  /* Adjusted width styles */
+  .info-box {
+      width: 100%;
+      max-width: 600px; /* Max width for larger screens */
+      margin: 10px auto;
+      border-radius: 10px;
+      padding: 20px;
+      color: white;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s ease-in-out;
+  }
+
+  .info-box:hover {
+      transform: translateY(-5px);
+  }
+
+  /* Background colors for boxes */
+  .description-box {
+      background-color: rgb(34, 193, 195); /* Light teal */
+  }
+
+  .symptoms-box {
+      background-color: rgb(253, 187, 45); /* Orange-yellow */
+  }
+
+  .advantages-box {
+      background-color: rgb(129, 199, 132); /* Green */
+  }
+
+  .disadvantages-box {
+      background-color: rgb(238, 82, 83); /* Coral red */
+  }
+
+  .info-box h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+  }
+
+  .info-box p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+  }
+  .card-title{
+    position: relative;
+    top: 30px;
+    font-size: x-large;
+    font-weight: bold;
+  }
+ 
+</style>
+
+<div class="container text-center">
+  <!-- Header Section -->
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <h1>Pancreatic Disease Prediction</h1>
+    </div>
+  </div>
+  <!-- Card Section -->
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <div class="card" style="height: 300px;">  <!-- Card 1 -->
+            <img src="{% static 'images/1.jpeg' %}" alt="Colorectal Disease" class="card-img-top" style="height: 70%; object-fit: cover;">
+            <a href="{% url 'index1' %}" class="card-link">
+                <div class="card-body">
+                    <h5 class="card-title">Image Prediction</h5>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card" style="height: 300px;">  <!-- Card 2 -->
+            <img src="{% static 'images/2.jpeg' %}" alt="Colorectal Disease" class="card-img-top" style="height: 70%; object-fit: cover;">
+            <a href="{% url 'index' %}" class="card-link">
+                <div class="card-body">
+                    <h5 class="card-title">Numeric Prediction</h5>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+  <!-- Learn More Button -->
+  <div class="row justify-content-center mt-4">
+    <a href="#details" class="btn btn-custom">Learn More</a>
+  </div>
+
+<!-- Details Section -->
+<div id="details" class="mt-5">
+    <div class="row justify-content-center">
+        <!-- Description Box -->
+        <div class="col-md-6">
+            <div class="info-box description-box">
+                <h2>Description</h2>
+                <p>
+                    Pancreatic diseases include a variety of conditions affecting the pancreas, such as pancreatitis, pancreatic cancer, and diabetes. 
+                    These diseases can disrupt digestion and metabolic processes, significantly impacting overall health. 
+                    Early prediction and diagnosis are crucial for improving treatment outcomes and patient survival rates.
+                </p>
+            </div>
+        </div>
+
+        <!-- Symptoms Box -->
+        <div class="col-md-6">
+            <div class="info-box symptoms-box">
+                <h2>Symptoms</h2>
+                <p>
+                    Symptoms of pancreatic diseases may include abdominal pain, weight loss, jaundice, loss of appetite, nausea, and changes in stool consistency. 
+                    Monitoring these symptoms and consulting a healthcare professional promptly can facilitate early detection and intervention.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+        <!-- Advantages Box -->
+        <div class="col-md-6">
+            <div class="info-box advantages-box">
+                <h2>Advantages</h2>
+                <p>
+                    Early prediction of pancreatic diseases enables timely intervention, improved prognosis, and a higher quality of life. 
+                    Predictive models can help identify at-risk individuals and support preventive measures, ultimately reducing disease progression and associated complications.
+                </p>
+            </div>
+        </div>
+
+        <!-- Disadvantages Box -->
+        <div class="col-md-6">
+            <div class="info-box disadvantages-box">
+                <h2>Disadvantages</h2>
+                <p>
+                    Delayed diagnosis of pancreatic diseases can lead to advanced stages of the disease, reduced treatment effectiveness, and increased mortality rates. 
+                    Late detection often results in more intensive treatments, higher healthcare costs, and a diminished quality of life.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+  // Smooth scroll to the details section
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+              behavior: 'smooth'
+          });
+      });
+  });
+</script>
+
+{% endblock content %}

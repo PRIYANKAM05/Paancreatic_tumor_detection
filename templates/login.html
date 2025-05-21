@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <style>
+    /* Ensure the body takes full height of the page */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #e4dcdc;
+      display: flex;
+      flex-direction: column;  /* Align items vertically */
+      height: 100vh;
+      background: url('{% static "images/6.jpg" %}') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    /* Navbar Styles */
+    nav {
+      background-color: #333;
+      padding: 15px;
+      color: white;
+      text-align: center;
+    }
+
+    /* Flexbox layout to center the form */
+    .container {
+      display: flex;
+      justify-content: center; /* Horizontally center */
+      align-items: center; /* Vertically center */
+      flex-grow: 1; /* Ensure it takes the remaining height */
+      position: absolute;
+      left: 200px;
+      top: 250px;
+    }
+
+    /* Form Styles */
+    form {
+      background-color: rgba(0, 0, 0, 0.6); /* Slightly transparent background */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      width: 400px; /* Increased form width */
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    }
+
+    label, p, h1 {
+      color: aliceblue;
+      display: block;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    label{
+      color: greenyellow;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    a {
+      color: rgb(68, 156, 233);
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+
+  <!-- Login Form Section -->
+  <div class="container">
+    <form method="post">
+      {% csrf_token %}
+      <h1>Login</h1>
+
+      <label for="username">Username :</label>
+      <input type="text" placeholder="Enter Username" id="username" name="username" required>
+
+      <label for="password">Password :</label>
+      <input type="password" placeholder="Password" id="password" name="pass" required>
+
+      <button type="submit">Log In</button>
+      <br><br>
+      <p>You need an account to continue <a href="{% url 'signup' %}">Sign up</a></p>
+    </form>
+  </div>
+  
+{% endblock content %}

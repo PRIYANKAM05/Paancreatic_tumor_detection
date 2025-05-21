@@ -1,0 +1,132 @@
+{% extends 'base.html' %} 
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Body style */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: aliceblue;
+      display: flex;
+      flex-direction: column; /* Align items vertically */
+      justify-content: center; /* Center the content */
+      height: 100%;
+      background: url('{% static "images/6.jpg" %}') no-repeat center center fixed; 
+      background-size: cover;
+    }
+
+    /* Navbar style */
+    nav {
+      background-color: #333;
+      padding: 15px;
+      color: white;
+      text-align: center;
+      position: relative;
+      bottom: 30px;
+      margin-top: 20px;
+    }
+
+    /* Form container style */
+    .form-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-grow: 1; /* Make sure it takes available space */
+    }
+
+    form {
+      background-color: #3b3b3b;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 400px; /* Increased form width */
+      text-align: center;
+    }
+
+    h2 {
+      text-align: center;
+      color: #fff; /* Changed color for better contrast */
+    }
+
+    label, p, h1 {
+      color: aliceblue;
+      display: block;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    label{
+      color: greenyellow;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    p {
+      color: aliceblue;
+    }
+
+    a {
+      color: rgb(158, 158, 228);
+    }
+  </style>
+  <title>Signup Page</title>
+</head>
+
+<body>
+
+ 
+
+  <!-- Form Container -->
+  <div class="form-container">
+    <form action="" method="post">
+      {% csrf_token %}
+
+      <h2>Sign Up</h2>
+
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="username" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password1" name="password1" required>
+
+      <label for="confirm-password">Confirm Password:</label>
+      <input type="password" id="password2" name="password2" required>
+
+      <button type="submit">Sign Up</button><br> <br>
+
+      <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+    </form>
+  </div>
+
+</body>
+</html>
+{% endblock content %}
